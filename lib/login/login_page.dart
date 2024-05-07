@@ -76,6 +76,7 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                 ),
                 child: Form(
                   key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     children: [
                       TextFormField(
