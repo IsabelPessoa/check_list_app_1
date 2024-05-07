@@ -1,16 +1,16 @@
 import 'package:check_list_app_1/values/custom_colors.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => LoginScreenState();
+  State<SignUpScreen> createState() => LoginScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<SignUpScreen> {
   Color topColor = CustomColors().getActivePrimaryColor();
-  Color bottomColor = CustomColors().getActiveSecundaryColor();
+  Color bottomColor = CustomColors().getActiveSecondaryColor();
 
   bool continueConnected = false;
 
@@ -52,7 +52,7 @@ class LoginScreenState extends State<LoginScreen> {
                   bottom: 30,
                 ),
                 child: Text(
-                  "Entrar",
+                  "Cadastro",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: CustomColors().getActiveDetailsColor(),
@@ -196,7 +196,7 @@ class LoginScreenState extends State<LoginScreen> {
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
-                      CustomColors().getActiveSecundaryColor()),
+                      CustomColors().getActiveSecondaryColor()),
                 ),
                 onPressed: () {},
                 child: Text(
