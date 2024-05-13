@@ -1,7 +1,9 @@
-import 'package:check_list_app_1/login/util/validation_rules/verify_user.dart';
 import 'package:check_list_app_1/values/custom_colors.dart';
 import 'package:check_list_app_1/login/util/validation_rules/email_validation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,13 +14,17 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
   final _formKey = GlobalKey<FormState>();
-
   final _emailTEC = TextEditingController();
 
-  Color topColor = CustomColors().getActivePrimaryColor();
-  Color bottomColor = CustomColors().getActiveSecondaryColor();
+  Color topColor = CustomColors().getActiveSecondaryColor();
+  Color bottomColor = CustomColors().getActiveTerciaryColor();
+  Color primaryColor = CustomColors().getActivePrimaryColor();
+  Color secondaryColor = CustomColors().getActiveSecondaryColor();
+  Color terciaryColor = CustomColors().getActiveTerciaryColor();
+  Color detailsColor = CustomColors().getActiveDetailsColor();
 
   bool continueConnected = false;
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +68,7 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                   "Entrar",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: CustomColors().getActiveDetailsColor(),
+                    color: detailsColor,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
@@ -83,29 +89,24 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                         controller: _emailTEC,
                         autofocus: false,
                         keyboardType: TextInputType.emailAddress,
-                        style: TextStyle(
-                            color: CustomColors().getActiveDetailsColor()),
-                        cursorColor: CustomColors().getActiveDetailsColor(),
+                        style: TextStyle(color: detailsColor),
+                        cursorColor: detailsColor,
                         cursorErrorColor: Colors.redAccent,
                         decoration: InputDecoration(
                           labelText: "Insira o seu e-mail",
-                          labelStyle: TextStyle(
-                              color: CustomColors().getActiveDetailsColor()),
+                          labelStyle: TextStyle(color: detailsColor),
                           prefixIcon: Icon(
                             Icons.mail,
-                            color: CustomColors().getActiveDetailsColor(),
+                            color: detailsColor,
                           ),
                           border: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: CustomColors().getActiveDetailsColor()),
+                            borderSide: BorderSide(color: detailsColor),
                           ),
                           focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: CustomColors().getActiveDetailsColor()),
+                            borderSide: BorderSide(color: detailsColor),
                           ),
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: CustomColors().getActiveDetailsColor()),
+                            borderSide: BorderSide(color: detailsColor),
                           ),
                         ),
                         validator: isNotEmpty,
@@ -121,32 +122,51 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                   children: [
                     TextFormField(
                       autofocus: true,
+                      obscureText: _obscureText,
                       style: TextStyle(
-                          color: CustomColors().getActiveDetailsColor()),
-                      cursorColor: CustomColors().getActiveDetailsColor(),
+                        color: detailsColor,
+                      ),
+                      cursorColor: detailsColor,
                       cursorErrorColor: Colors.redAccent,
                       decoration: InputDecoration(
                         labelText: "Insira a sua senha",
                         labelStyle: TextStyle(
-                            color: CustomColors().getActiveDetailsColor()),
+                          color: detailsColor,
+                        ),
+                        suffixIcon: IconButton(
+                          color: detailsColor,
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                        ),
                         prefixIcon: Icon(
                           Icons.key,
-                          color: CustomColors().getActiveDetailsColor(),
+                          color: detailsColor,
                         ),
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: CustomColors().getActiveDetailsColor()),
+                            color: detailsColor,
+                          ),
                         ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: CustomColors().getActiveDetailsColor()),
+                            color: detailsColor,
+                          ),
                         ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: CustomColors().getActiveDetailsColor()),
+                            color: detailsColor,
+                          ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -159,7 +179,7 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                   child: Text(
                     "Esqueci a minha senha",
                     style: TextStyle(
-                      color: CustomColors().getActiveDetailsColor(),
+                      color: detailsColor,
                       fontSize: 12,
                     ),
                     textAlign: TextAlign.right,
@@ -170,16 +190,28 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
               // Stay connected
               Row(children: [
                 Checkbox(
-                    value: continueConnected,
-                    onChanged: (bool? newValue) {
-                      setState(() {
-                        continueConnected = newValue!;
-                      });
-                    }),
+                  checkColor: detailsColor,
+                  activeColor: primaryColor,
+                  overlayColor: MaterialStateProperty.all(secondaryColor),
+                  value: continueConnected,
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      continueConnected = newValue!;
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color:
+                          detailsColor, // Cor da borda quando selecionado e não selecionado
+                      width: 5, // Espessura da borda
+                    ),
+                    borderRadius: BorderRadius.circular(2), // Raio da borda
+                  ),
+                ),
                 Text(
                   "Permanecer conectado",
                   style: TextStyle(
-                    color: CustomColors().getActiveDetailsColor(),
+                    color: detailsColor,
                   ),
                 ),
               ]),
@@ -187,24 +219,24 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
               // Login button
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      CustomColors().getActivePrimaryColor()),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(primaryColor),
                 ),
                 onPressed: () {},
                 child: Text(
                   "Login",
                   style: TextStyle(
-                    color: CustomColors().getActiveDetailsColor(),
+                    color: detailsColor,
                   ),
                 ),
               ),
 
               // Line
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Divider(
                   thickness: 0.5,
-                  color: CustomColors().getActiveDetailsColor(),
+                  color: detailsColor,
                 ),
               ),
 
@@ -214,19 +246,19 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15,
-                  color: CustomColors().getActiveDetailsColor(),
+                  color: detailsColor,
                 ),
               ),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      CustomColors().getActiveSecondaryColor()),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(secondaryColor),
                 ),
                 onPressed: () {},
                 child: Text(
                   "Cadastre-se",
                   style: TextStyle(
-                    color: CustomColors().getActivePrimaryColor(),
+                    color: primaryColor,
                   ),
                 ),
               ),
