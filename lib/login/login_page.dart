@@ -1,9 +1,7 @@
+import 'package:check_list_app_1/sign_up/sing_up_page.dart';
 import 'package:check_list_app_1/values/custom_colors.dart';
 import 'package:check_list_app_1/login/util/validation_rules/email_validation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,8 +14,8 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
   final _formKey = GlobalKey<FormState>();
   final _emailTEC = TextEditingController();
 
-  Color topColor = CustomColors().getActiveSecondaryColor();
-  Color bottomColor = CustomColors().getActiveTerciaryColor();
+  Color topColor = CustomColors().getActivePrimaryColor();
+  Color bottomColor = CustomColors().getActiveSecondaryColor();
   Color primaryColor = CustomColors().getActivePrimaryColor();
   Color secondaryColor = CustomColors().getActiveSecondaryColor();
   Color terciaryColor = CustomColors().getActiveTerciaryColor();
@@ -121,7 +119,7 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                 child: Column(
                   children: [
                     TextFormField(
-                      autofocus: true,
+                      autofocus: false,
                       obscureText: _obscureText,
                       style: TextStyle(
                         color: detailsColor,
@@ -254,7 +252,14 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(secondaryColor),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SingUpScreen(),
+                    ),
+                  );
+                },
                 child: Text(
                   "Cadastre-se",
                   style: TextStyle(

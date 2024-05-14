@@ -40,9 +40,6 @@ class SingUpScreen extends StatefulWidget {
 }
 
 class SingUpScreenState extends State<SingUpScreen> with EmailValidationMixin {
-  final _formKey = GlobalKey<FormState>();
-  final _emailTEC = TextEditingController();
-
   Color topColor = CustomColors().getActiveSecondaryColor();
   Color bottomColor = CustomColors().getActiveTerciaryColor();
   Color primaryColor = CustomColors().getActivePrimaryColor();
@@ -79,7 +76,7 @@ class SingUpScreenState extends State<SingUpScreen> with EmailValidationMixin {
             children: [
               // Title
               Padding(
-                padding: const EdgeInsets.only(top: 80),
+                padding: const EdgeInsets.only(top: 55),
                 child: Text(
                   "Cadastro",
                   textAlign: TextAlign.center,
@@ -393,7 +390,7 @@ class SingUpScreenState extends State<SingUpScreen> with EmailValidationMixin {
                 ),
               ),
 
-              // Sign Up button
+              // Login button
               Text(
                 "Já possui uma conta?",
                 textAlign: TextAlign.center,
@@ -407,7 +404,9 @@ class SingUpScreenState extends State<SingUpScreen> with EmailValidationMixin {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(secondaryColor),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: Text(
                   "Entre com a sua conta",
                   style: TextStyle(
