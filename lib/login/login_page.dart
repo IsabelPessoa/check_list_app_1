@@ -1,6 +1,6 @@
 import 'package:check_list_app_1/sign_up/sing_up_page.dart';
 import 'package:check_list_app_1/values/custom_colors.dart';
-import 'package:check_list_app_1/login/util/validation_rules/email_validation.dart';
+import 'package:check_list_app_1/login/util/validation_rules/field_validations.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,7 +10,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => LoginScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
+class LoginScreenState extends State<LoginScreen> with FieldValidationMixin {
   final _formKey = GlobalKey<FormState>();
   final _emailTEC = TextEditingController();
 
@@ -89,7 +89,8 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                         keyboardType: TextInputType.emailAddress,
                         style: TextStyle(color: detailsColor),
                         cursorColor: detailsColor,
-                        cursorErrorColor: Colors.redAccent,
+                        cursorErrorColor:
+                            const Color.fromARGB(255, 255, 55, 55),
                         decoration: InputDecoration(
                           labelText: "Insira o seu e-mail",
                           labelStyle: TextStyle(color: detailsColor),
@@ -107,8 +108,12 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                             borderSide: BorderSide(color: detailsColor),
                           ),
                         ),
-                        validator: isNotEmpty,
-                      )
+                        validator: (email) => combine([
+                          () => isNotNull(email),
+                          () => isNotEmpty(email),
+                          () => isNotValidEmail(email),
+                        ]),
+                      ),
                     ],
                   ),
                 ),
@@ -121,6 +126,7 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                     TextFormField(
                       autofocus: false,
                       obscureText: _obscureText,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       style: TextStyle(
                         color: detailsColor,
                       ),
@@ -164,6 +170,11 @@ class LoginScreenState extends State<LoginScreen> with EmailValidationMixin {
                           ),
                         ),
                       ),
+                      validator: (password) => combine([
+                        () => isNotNull(password),
+                        () => isNotEmpty(password),
+                        () => isNotValidPassword(password),
+                      ]),
                     ),
                   ],
                 ),

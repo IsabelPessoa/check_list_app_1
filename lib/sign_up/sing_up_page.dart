@@ -1,5 +1,5 @@
 import 'package:check_list_app_1/values/custom_colors.dart';
-import 'package:check_list_app_1/login/util/validation_rules/email_validation.dart';
+import 'package:check_list_app_1/login/util/validation_rules/field_validations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
@@ -39,7 +39,7 @@ class SingUpScreen extends StatefulWidget {
   State<SingUpScreen> createState() => SingUpScreenState();
 }
 
-class SingUpScreenState extends State<SingUpScreen> with EmailValidationMixin {
+class SingUpScreenState extends State<SingUpScreen> with FieldValidationMixin {
   Color topColor = CustomColors().getActiveSecondaryColor();
   Color bottomColor = CustomColors().getActiveTerciaryColor();
   Color primaryColor = CustomColors().getActivePrimaryColor();
